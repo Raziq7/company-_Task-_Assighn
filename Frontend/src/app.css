@@ -1,0 +1,11 @@
+html{
+    background-color:#F4F5F9;
+    margin: 0;
+    padding: 0;
+    /* background-image:  linear-gradient(to right, #36EAEF, #6B0AC9), */
+}
+.main{
+    margin: 0;
+    padding: 0;
+    font-style: Serif;
+}

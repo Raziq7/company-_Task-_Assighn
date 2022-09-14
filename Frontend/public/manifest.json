@@ -1,0 +1,48 @@
+{
+  
+  "theme_color" : "#141313",
+  "background_color" : "#000000",
+  "display" : "standalone",
+  "scope" : "/",
+  "start_url" : "/",
+  "name" : "JOB INSIGHT",
+  "short_name" : "JBI",
+  "description" : "This app is meant to make tasks easier",
+  
+
+"icons": [
+  
+  {
+    "src": "favicon.ico",
+    "sizes": "64x64 32x32 24x24 16x16",
+    "type": "image/x-icon"
+  },
+  {
+    "src": "maskable.png",
+    "type": "image/png",
+    "sizes": "192x192",
+    "purpose" :"any maskable"
+  },
+  {
+    "src": "logo192.jpg",
+    "type": "image/png/jpg",
+    "sizes": "192x192"
+  },
+  {
+    "src": "logo256.jpg",
+    "type": "image/png/jpg",
+    "sizes": "256x256"
+  },
+  {
+    "src": "logo384.jpg",
+    "type": "image/png/jpg",
+    "sizes": "384x384"
+  },
+  {
+    "src": "logo512.jpg",
+    "type": "image/png/jpg",
+    "sizes": "512x512"
+  }
+]
+
+}
