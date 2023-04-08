@@ -15,9 +15,15 @@ import {
   ADMIN_EXCEL_SHEET_RESOURCE_FIND_REQUEST,
   ADMIN_EXCEL_SHEET_RESOURCE_FIND_SUCCESS,
   ADMIN_EXCEL_SHEET_SUCCESS,
+  ADMIN_IMAGE_UPLOAD_ERR,
+  ADMIN_IMAGE_UPLOAD_REQUEST,
+  ADMIN_IMAGE_UPLOAD_SUCCESS,
   ADMIN_LOGIN_ERR,
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
+  ADMIN_PROFILE_DETAILS_FETCH_ERR,
+  ADMIN_PROFILE_DETAILS_FETCH_REQUEST,
+  ADMIN_PROFILE_DETAILS_FETCH_SUCCESS,
   ADMIN_REGISTER_ERR,
   ADMIN_REGISTER_REQUEST,
   ADMIN_REGISTER_SUCCESS,
@@ -637,5 +643,59 @@ export const adminExcelResourceFindAction =
       });
     } catch (error) {
       dispatch({ type: ADMIN_EXCEL_SHEET_CASH_FLOW_FIND_ERR, payload: error });
+    }
+  };
+
+  // AdminFindProfileAction
+  export const AdminFindProfileAction =
+  () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_PROFILE_DETAILS_FETCH_REQUEST });
+
+      let adminExit = localStorage.getItem("loginInfo")
+        ? JSON.parse(localStorage.getItem("loginInfo"))
+        : null;
+
+      let { data } = await axios.get(`/api/admin/adminProfileFind/?id=${adminExit.isUserExist._id}`, {
+        headers: {
+          authorization: adminExit.Token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      dispatch({
+        type: ADMIN_PROFILE_DETAILS_FETCH_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({ type: ADMIN_PROFILE_DETAILS_FETCH_ERR, payload: error });
+    }
+  };
+
+  // imageUploadAdminAction
+  export const imageUploadAdminAction = (Image) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_IMAGE_UPLOAD_REQUEST });
+      console.log(Image,"filesfilesfilesfiles");
+      let adminExit = localStorage.getItem("loginInfo")
+        ? JSON.parse(localStorage.getItem("loginInfo"))
+        : null;
+
+      let userID = adminExit.isUserExist._id;
+      let { data } = await axios.put(`/api/admin/imageUploadAdmin/?id=${userID}`,{Image}, {
+        headers: {
+          authorization: adminExit.Token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(
+        data,
+        "userFinduserFinduserFinduserFinduserFinduserFinduserFind"
+      );
+      dispatch({ type: ADMIN_IMAGE_UPLOAD_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: ADMIN_IMAGE_UPLOAD_ERR, payload: error });
     }
   };

@@ -4,10 +4,12 @@ import {
   adminExcelCashFlowFind,
   adminExcelExpensesFind,
   adminExcelResourceFind,
+  adminProfileFind,
   adminTaskAsighn,
   adminTaskAsignDelete,
   adminTaskAsignFind,
   deletePro,
+  imageUploadAdmin,
   LoginAdmin,
   registerAdmin,
   taskAsign,
@@ -98,5 +100,15 @@ router
   router
   .route("/adminExcelCashFlowFind")
   .get(authenticateJWT, adminExcelCashFlowFind);
+
+  // adminProfileFind
+  router
+  .route("/adminProfileFind")
+  .get(authenticateJWT, adminProfileFind);
+
+  // imageUploadAdmin
+  router
+  .route("/imageUploadAdmin")
+  .put(authenticateJWT, imageUploadAdmin);
 
 export default router;

@@ -1,10 +1,4 @@
-// import Navbar from '../navbar/Navbar';
-
-import { useParams } from "react-router-dom";
-import { Identity } from "@mui/base";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Grid from "@mui/material/Grid";
 import {
   Avatar,
   Box,
@@ -17,17 +11,12 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { UploadButton } from "react-uploader";
-import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
 import EditIcon from "@mui/icons-material/Edit";
 import Divider from "@mui/material/Divider";
-import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   imageUploadUserAction,
-//   userFindProfileAction,
-// } from "../../action/userAction";
+import { AdminFindProfileAction, imageUploadAdminAction } from "../action/adminAction";
 const profileInfo = React.createContext({});
 const Wraper = {
   backgroundColor: "#5D5CDE",
@@ -45,22 +34,18 @@ const WraperA = {
 function AdminProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [status, setStatus] = useState(false);
-  // const { id } = useParams();
-  // console.log("this is id of profiel   :", id);
-  const [profile, setUserProfile] = useState();
 
-  const { userFind } = useSelector((state) => {
-    return state.userFindProfile;
+  const { adminProFind } = useSelector((state) => {
+    return state.AdminFindProfile;
   });
 
   const { imageUpload } = useSelector((state) => {
     return state.imageUploadUser;
   });
 
-  //   useEffect(() => {
-  //     // dispatch(userFindProfileAction());
-  //   }, [imageUpload]);
+    useEffect(() => {
+      dispatch(AdminFindProfileAction());
+    }, [imageUpload]);
 
   const editProfile = (id) => {
     navigate(`/userHome/editprofile/${id}`);
@@ -145,17 +130,18 @@ function AdminProfile() {
                     marginBottom: "10px",
                   }}
                 >
-                  {userFind && (
+                  {adminProFind && (
+                    adminProFind?.img?.length != 0 ?
                     <img
                       onClick={handleOpen}
-                      src={userFind.image}
+                      src={adminProFind.img}
                       alt="chosen"
                       style={{
                         width: "150px",
                         height: "auto",
                         cursor: "pointer",
                       }}
-                    />
+                    /> : <Avatar sx={{ bgcolor: "blue" }} variant="square" alt={adminProFind.firstName} style={{ width: "auto", height: "150px",cursor:"pointer" }}/>
                   )}
                 </div>
               </div>
@@ -163,7 +149,7 @@ function AdminProfile() {
               <div style={{ display: "block" }}>
                 <Typography align="center" component="h5">
                   {" "}
-                  <h2>{userFind && userFind.name}</h2>{" "}
+                  <h2>{adminProFind && adminProFind.firstName}</h2>{" "}
                 </Typography>
               </div>
               <div style={{ display: "block", color: "gray" }}>
@@ -175,9 +161,9 @@ function AdminProfile() {
               <UploadButton
                 uploader={uploader}
                 options={{ multi: true }}
-                // onComplete={(files) =>
-                //   dispatch(imageUploadUserAction(files[0].fileUrl))
-                // }
+                onComplete={(files) =>
+                  dispatch(imageUploadAdminAction(files[0].fileUrl))
+                }
               >
                 {({ onClick }) => (
                   <button
@@ -235,7 +221,7 @@ function AdminProfile() {
                           variant="h3"
                           gutterBottom
                         >
-                          Raziq...
+                          {adminProFind && adminProFind.firstName}
                         </Typography>
                       }
                       secondary="Admin"
@@ -243,7 +229,7 @@ function AdminProfile() {
                   </ListItem>
                 </Typography>
                 <Button
-                  onClick={() => editProfile(userFind._id)}
+                  onClick={() => editProfile(adminProFind._id)}
                   variant="outlined"
                   disableElevation
                 >
@@ -270,7 +256,7 @@ function AdminProfile() {
               >
                 {/* <Text></Text> */}
                 <Typography sx={{ display: "inline" }}>
-                  <small>{userFind && userFind.name}</small>
+                  <small>{adminProFind && adminProFind.firstName}</small>
                 </Typography>
                 <Typography
                   sx={{
@@ -281,7 +267,7 @@ function AdminProfile() {
                     fontWeight: "bold",
                   }}
                 >
-                  <small>name</small>
+                  <small>Name</small>
                 </Typography>
               </div>
               <Divider />
@@ -295,7 +281,7 @@ function AdminProfile() {
                 }}
               >
                 <Typography sx={{ display: "inline" }}>
-                  <small>{userFind && userFind.email}</small>
+                  <small>{adminProFind && adminProFind.email}</small>
                 </Typography>
                 <Typography
                   sx={{
@@ -320,7 +306,7 @@ function AdminProfile() {
                 }}
               >
                 <Typography sx={{ display: "inline" }}>
-                  <small>{userFind && userFind.password}</small>
+                  <small>{adminProFind && adminProFind.password}</small>
                 </Typography>
                 <Typography
                   sx={{
@@ -367,7 +353,7 @@ function AdminProfile() {
 
       {/* Modal image */}
 
-      {userFind && (
+      {adminProFind && (
         <Modal
           open={open}
           onClose={handleClose}
@@ -377,7 +363,7 @@ function AdminProfile() {
           <Box sx={style}>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <img
-                src={userFind.image}
+                src={adminProFind.image}
                 alt="chosen"
                 style={{ width: "100%", height: "auto" }}
               />

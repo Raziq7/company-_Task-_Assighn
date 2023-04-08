@@ -5,7 +5,7 @@ import { Identity } from "@mui/base";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
-import { Box, Button, Container, Modal, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Modal, Typography } from "@mui/material";
 import { UploadButton } from "react-uploader";
 import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
@@ -137,12 +137,19 @@ function Profile() {
                     }}
                   >
                     {userFind && (
+                      userFind.image.length != 0 ? 
                       <img
                         onClick={handleOpen}
                         src={userFind.image}
                         alt="chosen"
-                        style={{ width: "150px", height: "auto",cursor:"pointer" }}
-                      />
+                        style={{ width: "150px", height: "150px",cursor:"pointer" }}
+                      /> : <Avatar
+                      sx={{ bgcolor: "#1976D2" }}
+                      alt={userFind.name}
+                      src="/broken-image.jpg"
+                      style={{ width: "auto", height: "150px",cursor:"pointer" }}
+                      variant="square"
+                    />
                     )}
                   </div>
                 </div>

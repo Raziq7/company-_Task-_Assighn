@@ -13,6 +13,7 @@ export const registerAdmin = asyncHandler(async (req, res) => {
   const { fName, lName, email, password } = req.body;
   let findAdmin = await Admin.findOne({ email });
   if (!findAdmin) {
+
     let isUserExist = await Admin.create({
       firstName: fName,
       lastName: lName,
@@ -20,6 +21,7 @@ export const registerAdmin = asyncHandler(async (req, res) => {
       password,
       isAdmin: true,
       isSuperAdmin: false,
+      img : ""
     });
     res.json({
       isUserExist: {
@@ -743,4 +745,22 @@ export const adminExcelCashFlowFind = asyncHandler(async (req, res) => {
   const { id } = req.query;
   let findCashFlow = await CashFlow.find({ adminId: id });
   res.json(findCashFlow);
+});
+
+export const adminProfileFind = asyncHandler(async (req, res) => {
+  const { id } = req.query;
+  let findProfile = await Admin.findOne({ _id: id });
+  res.json(findProfile);
+});
+
+export const imageUploadAdmin = asyncHandler(async (req, res) => {
+  const { Image } = req.body;
+  const userID = req.query.id;
+  console.log(Image, "ImageImageImageImageImageImage");
+  console.log(userID, "userIDuserIDuserIDuserID");
+
+  let uploadImage = await Admin.findById({ _id: userID });
+  uploadImage.img = Image;
+  uploadImage.save()
+  res.json(uploadImage)
 });

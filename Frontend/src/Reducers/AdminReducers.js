@@ -17,6 +17,9 @@ import {
   ADMIN_LOGIN_ERR,
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
+  ADMIN_PROFILE_DETAILS_FETCH_ERR,
+  ADMIN_PROFILE_DETAILS_FETCH_REQUEST,
+  ADMIN_PROFILE_DETAILS_FETCH_SUCCESS,
   ADMIN_REGISTER_ERR,
   ADMIN_REGISTER_REQUEST,
   ADMIN_REGISTER_SUCCESS,
@@ -546,6 +549,32 @@ export const adminExcelCashFlowFindReducer = (state = {}, action) => {
         excelCashFlow: action.payload,
       };
     case ADMIN_EXCEL_SHEET_CASH_FLOW_FIND_ERR:
+      return {
+        ...state,
+        loading: false,
+        loading: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+// AdminFindProfileReducer
+
+export const AdminFindProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_PROFILE_DETAILS_FETCH_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ADMIN_PROFILE_DETAILS_FETCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        adminProFind: action.payload,
+      };
+    case ADMIN_PROFILE_DETAILS_FETCH_ERR:
       return {
         ...state,
         loading: false,

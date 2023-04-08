@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import {
   adminExcelCashFlowFindReducer,
   adminExcelResourceFindReducer,
+  AdminFindProfileReducer,
   AdminLoginReducer,
   adminTaskAsignFindReducer,
   AdminTaskAsignFindReducer,
@@ -61,7 +62,8 @@ const appReducer = combineReducers({
   adminExcelResourceFind: adminExcelResourceFindReducer,
   excelSheetAdd: excelSheetAddReducer,
   findExcelExpenses :findExcelExpensesReducer,
-  adminExcelCashFlowFind : adminExcelCashFlowFindReducer
+  adminExcelCashFlowFind : adminExcelCashFlowFindReducer,
+  AdminFindProfile : AdminFindProfileReducer
 });
 
 let Middleware = [thunk];
